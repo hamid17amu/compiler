@@ -13,7 +13,7 @@
 
  #line 8 "/usr/share/bison++/bison.h"
 
-#line 54 "par.y"
+#line 73 "par.y"
 typedef union {
     char *string;
     int value;
@@ -196,6 +196,8 @@ typedef
 #define	ASSIGNMENT	261
 #define	SEMICOLON	262
 #define	EXIT	263
+#define	INTEGER	264
+#define	BOOLEAN	265
 
 
 #line 169 "/usr/share/bison++/bison.h"
@@ -250,6 +252,8 @@ static const int RELATIONAL;
 static const int ASSIGNMENT;
 static const int SEMICOLON;
 static const int EXIT;
+static const int INTEGER;
+static const int BOOLEAN;
 
 
 #line 212 "/usr/share/bison++/bison.h"
@@ -264,6 +268,8 @@ static const int EXIT;
 	,ASSIGNMENT=261
 	,SEMICOLON=262
 	,EXIT=263
+	,INTEGER=264
+	,BOOLEAN=265
 
 
 #line 215 "/usr/share/bison++/bison.h"

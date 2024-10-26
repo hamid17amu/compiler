@@ -21,8 +21,11 @@ assignment    	(=)
 semicolon	(;)
 whitesp		[ \t\n]
 
+
 %%
 
+int            { return INTEGER; }
+bool           { return BOOLEAN; }
 exit		{ return EXIT; }
 {number}      	{ yylval.string = strdup(yytext); return NUMBER; }
 {identifier}  	{ yylval.string = strdup(yytext); return IDENTIFIER; }
