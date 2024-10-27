@@ -13,7 +13,7 @@
 
  #line 8 "/usr/share/bison++/bison.h"
 
-#line 73 "par.y"
+#line 74 "par.y"
 typedef union {
     char *string;
     int value;
@@ -198,6 +198,19 @@ typedef
 #define	EXIT	263
 #define	INTEGER	264
 #define	BOOLEAN	265
+#define	TRUE	266
+#define	FALSE	267
+#define	IF	268
+#define	ELSE	269
+#define	OR	270
+#define	AND	271
+#define	NOT	272
+#define	EQ	273
+#define	NE	274
+#define	LS	275
+#define	GR	276
+#define	LE	277
+#define	GE	278
 
 
 #line 169 "/usr/share/bison++/bison.h"
@@ -254,6 +267,19 @@ static const int SEMICOLON;
 static const int EXIT;
 static const int INTEGER;
 static const int BOOLEAN;
+static const int TRUE;
+static const int FALSE;
+static const int IF;
+static const int ELSE;
+static const int OR;
+static const int AND;
+static const int NOT;
+static const int EQ;
+static const int NE;
+static const int LS;
+static const int GR;
+static const int LE;
+static const int GE;
 
 
 #line 212 "/usr/share/bison++/bison.h"
@@ -270,6 +296,19 @@ static const int BOOLEAN;
 	,EXIT=263
 	,INTEGER=264
 	,BOOLEAN=265
+	,TRUE=266
+	,FALSE=267
+	,IF=268
+	,ELSE=269
+	,OR=270
+	,AND=271
+	,NOT=272
+	,EQ=273
+	,NE=274
+	,LS=275
+	,GR=276
+	,LE=277
+	,GE=278
 
 
 #line 215 "/usr/share/bison++/bison.h"

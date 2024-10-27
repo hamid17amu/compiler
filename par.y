@@ -30,7 +30,7 @@ void add_symbol(char *name, int value, char *type) {
 	
     if (symbol_count < MAX_SYMBOLS) {
         symbol_table[symbol_count].name = strdup(name);
-        symbol_table[symbol_count].value = value;
+        if (strcmp("bool", type)==0){symbol_table[symbol_count].value = (value==0)?0:1;} else symbol_table[symbol_count].value = value;
         symbol_table[symbol_count].type = strdup(type);
         printf("Added: %s = %d, type = %s\n", symbol_table[symbol_count].name, symbol_table[symbol_count].value, symbol_table[symbol_count].type);
         symbol_count++;
@@ -68,6 +68,7 @@ void print_symbols() {
     }
 }
 
+
 %}
 
 %union {
@@ -76,11 +77,15 @@ void print_symbols() {
 }
 
 
-%token <string> IDENTIFIER NUMBER RELATIONAL ASSIGNMENT SEMICOLON EXIT INTEGER BOOLEAN
-%type <value> E T F S
+%token <string> IDENTIFIER NUMBER RELATIONAL ASSIGNMENT SEMICOLON EXIT INTEGER BOOLEAN TRUE FALSE IF ELSE OR AND NOT EQ NE LS GR LE GE
+%type <value> E S B
 
 %left '+' '-'
 %left '*' '/'
+%left LS LE
+%left GR GE
+%left EQ NE
+
 
 %%
 P:	P S
@@ -88,27 +93,31 @@ P:	P S
 	;
 S:
     INTEGER IDENTIFIER ASSIGNMENT E SEMICOLON {add_symbol($2, $4,"int");}
-    | BOOLEAN IDENTIFIER ASSIGNMENT E SEMICOLON {add_symbol($2, $4,"bool");}
+    | BOOLEAN IDENTIFIER ASSIGNMENT B SEMICOLON {add_symbol($2, $4,"bool");}
     | IDENTIFIER ASSIGNMENT E SEMICOLON {update_symbol($1, $3);}
     | E SEMICOLON { printf("Expression result: %d\n", $1);}
     | EXIT	{return ;}
     ;
 
 E:
-    
-    	| E '+' T 	{$$ = $1 + $3;}
-    	| E '-' T 	{$$ = $1 - $3;}
-    	| E RELATIONAL E {$$ = 0;}
-    	| T 		{$$=$1;}
+    	E '+' E 	{$$ = $1 + $3;}
+    	| E '-' E 	{$$ = $1 - $3;}
+    	| E '*' E 	{$$ = $1 * $3;}
+    	| NUMBER 	{$$ = atoi($1);}
+    	| IDENTIFIER 	{$$ = get_symbol_value($1);}
+    	| B
     	;
     	
-T:	T '*' F 	{$$ = $1 * $3;}
-	| F 	{$$ = $1;}
-	;
-	
-F:	NUMBER 		{$$ = atoi($1);}
-    	| IDENTIFIER 	{$$ = get_symbol_value($1);}
-    	;
+B:
+	E EQ E		{$$ = $1==$3;}
+    	| E NE E 	{$$ = $1 != $3;}
+    	| E LS E	{$$ = $1 < $3;}
+    	| E GR E	{$$ = $1 > $3;}
+    	| E LE E	{$$ = $1 <= $3;}
+    	| E GE E	{$$ = $1 >= $3;}
+    	| TRUE		{$$ = 1;}
+    	| FALSE		{$$ = 0;}
+    	
 
 %%
 
