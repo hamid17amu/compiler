@@ -13,18 +13,30 @@
 
  #line 8 "/usr/share/bison++/bison.h"
 
-#line 124 "par.y"
+#line 175 "par.y"
 typedef union {
     char *string;
     int value;
     struct st {
-        char *next;
-        char *code;
+        int *next;
+        //char *code;
     } state;
     struct e {
         char *addr;
-        char *code;
+        //char *code;
     } expr;
+    struct b {
+    	int *true;
+    	int *false;
+    	//char *code;
+    } b;
+    struct m {
+    	int instr;
+    } m;
+    struct n{
+    	int *next;
+    } n;
+    
 } yy_parse_stype;
 #define YY_parse_STYPE yy_parse_stype
 #ifndef YY_USE_CLASS
@@ -210,15 +222,11 @@ typedef
 #define	FALSE	267
 #define	IF	268
 #define	ELSE	269
-#define	OR	270
-#define	AND	271
-#define	NOT	272
-#define	EQ	273
-#define	NE	274
-#define	LS	275
-#define	GR	276
-#define	LE	277
-#define	GE	278
+#define	WHILE	270
+#define	OR	271
+#define	AND	272
+#define	NOT	273
+#define	RELOP	274
 
 
 #line 169 "/usr/share/bison++/bison.h"
@@ -279,15 +287,11 @@ static const int TRUE;
 static const int FALSE;
 static const int IF;
 static const int ELSE;
+static const int WHILE;
 static const int OR;
 static const int AND;
 static const int NOT;
-static const int EQ;
-static const int NE;
-static const int LS;
-static const int GR;
-static const int LE;
-static const int GE;
+static const int RELOP;
 
 
 #line 212 "/usr/share/bison++/bison.h"
@@ -308,15 +312,11 @@ static const int GE;
 	,FALSE=267
 	,IF=268
 	,ELSE=269
-	,OR=270
-	,AND=271
-	,NOT=272
-	,EQ=273
-	,NE=274
-	,LS=275
-	,GR=276
-	,LE=277
-	,GE=278
+	,WHILE=270
+	,OR=271
+	,AND=272
+	,NOT=273
+	,RELOP=274
 
 
 #line 215 "/usr/share/bison++/bison.h"

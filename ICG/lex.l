@@ -11,12 +11,6 @@ digits 		{digit}+
 fraction 	(\.{digits})?
 exponent	(E[+-]?{digits})?
 number		{digits}{fraction}{exponent}
-rel_op_eq    	(==)
-rel_op_neq   	(!=)
-rel_op_leq   	(<=)
-rel_op_geq   	(>=)
-rel_op_lt    	(<)
-rel_op_gt    	(>)
 assignment    	(=)
 semicolon	(;)
 whitesp		[ \t\n]
@@ -30,16 +24,17 @@ whitesp		[ \t\n]
 "false"		{ return FALSE; }
 "if"		{ return IF; }
 "else"		{ return ELSE;}
+"while"		{ return WHILE;}
 "|"		{ return OR;}
 "&"		{ return AND;}
 "!"		{ return NOT;} 		
 "exit"		{ return EXIT; }
-"=="          	{ return EQ; }
-"!="          	{ return NE; }
-"<"           	{ return LS; }
-">"           	{ return GR; }
-"<="          	{ return LE; }
-">="          	{ return GE; }
+"=="          	{ yylval.string = strdup(yytext); return RELOP; }
+"!="          	{ yylval.string = strdup(yytext); return RELOP; }
+"<"           	{ yylval.string = strdup(yytext); return RELOP; }
+">"           	{ yylval.string = strdup(yytext); return RELOP; }
+"<="          	{ yylval.string = strdup(yytext); return RELOP; }
+">="          	{ yylval.string = strdup(yytext); return RELOP; }
 
 
 {number}      	{ yylval.string = strdup(yytext); return NUMBER; }
@@ -47,7 +42,7 @@ whitesp		[ \t\n]
 {assignment}  	{ return ASSIGNMENT; }
 {semicolon}	{ return SEMICOLON;}
 [-+()/*] 	{ return *yytext; }
-{whitesp}     ;
+{whitesp}     	;
 
 %%
 
