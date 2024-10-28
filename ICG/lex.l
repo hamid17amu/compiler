@@ -11,6 +11,12 @@ digits 		{digit}+
 fraction 	(\.{digits})?
 exponent	(E[+-]?{digits})?
 number		{digits}{fraction}{exponent}
+rel_op_eq    	(==)
+rel_op_neq   	(!=)
+rel_op_leq   	(<=)
+rel_op_geq   	(>=)
+rel_op_lt    	(<)
+rel_op_gt    	(>)
 assignment    	(=)
 semicolon	(;)
 whitesp		[ \t\n]

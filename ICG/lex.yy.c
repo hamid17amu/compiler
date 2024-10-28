@@ -696,7 +696,7 @@ YY_DECL
 		}
 
 	{
-#line 19 "lex.l"
+#line 25 "lex.l"
 
 
 #line 703 "lex.yy.c"
@@ -758,118 +758,118 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 21 "lex.l"
+#line 27 "lex.l"
 { return INTEGER; }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 22 "lex.l"
+#line 28 "lex.l"
 { return BOOLEAN; }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 23 "lex.l"
+#line 29 "lex.l"
 { return TRUE; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 24 "lex.l"
+#line 30 "lex.l"
 { return FALSE; }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 25 "lex.l"
+#line 31 "lex.l"
 { return IF; }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 26 "lex.l"
+#line 32 "lex.l"
 { return ELSE;}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 27 "lex.l"
+#line 33 "lex.l"
 { return OR;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 28 "lex.l"
+#line 34 "lex.l"
 { return AND;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 29 "lex.l"
+#line 35 "lex.l"
 { return NOT;} 		
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 30 "lex.l"
+#line 36 "lex.l"
 { return EXIT; }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 31 "lex.l"
+#line 37 "lex.l"
 { return EQ; }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 32 "lex.l"
+#line 38 "lex.l"
 { return NE; }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 33 "lex.l"
+#line 39 "lex.l"
 { return LS; }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 34 "lex.l"
+#line 40 "lex.l"
 { return GR; }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 35 "lex.l"
+#line 41 "lex.l"
 { return LE; }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 36 "lex.l"
+#line 42 "lex.l"
 { return GE; }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 39 "lex.l"
+#line 45 "lex.l"
 { yylval.string = strdup(yytext); return NUMBER; }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 40 "lex.l"
+#line 46 "lex.l"
 { yylval.string = strdup(yytext); return IDENTIFIER; }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 41 "lex.l"
+#line 47 "lex.l"
 { return ASSIGNMENT; }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 42 "lex.l"
+#line 48 "lex.l"
 { return SEMICOLON;}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 43 "lex.l"
+#line 49 "lex.l"
 { return *yytext; }
 	YY_BREAK
 case 22:
 /* rule 22 can match eol */
 YY_RULE_SETUP
-#line 44 "lex.l"
+#line 50 "lex.l"
 ;
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 46 "lex.l"
+#line 52 "lex.l"
 ECHO;
 	YY_BREAK
 #line 876 "lex.yy.c"
@@ -1877,7 +1877,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 46 "lex.l"
+#line 52 "lex.l"
 
 
 int yywrap() {
