@@ -36,7 +36,6 @@ whitesp		[ \t\n]
 "<="          	{ yylval.string = strdup(yytext); return RELOP; }
 ">="          	{ yylval.string = strdup(yytext); return RELOP; }
 
-
 {number}      	{ yylval.string = strdup(yytext); return NUMBER; }
 {identifier}  	{ yylval.string = strdup(yytext); return IDENTIFIER; }
 {assignment}  	{ return ASSIGNMENT; }

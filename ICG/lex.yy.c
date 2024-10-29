@@ -845,38 +845,38 @@ YY_RULE_SETUP
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 40 "lex.l"
+#line 39 "lex.l"
 { yylval.string = strdup(yytext); return NUMBER; }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 41 "lex.l"
+#line 40 "lex.l"
 { yylval.string = strdup(yytext); return IDENTIFIER; }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 42 "lex.l"
+#line 41 "lex.l"
 { return ASSIGNMENT; }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 43 "lex.l"
+#line 42 "lex.l"
 { return SEMICOLON;}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 44 "lex.l"
+#line 43 "lex.l"
 { return *yytext; }
 	YY_BREAK
 case 23:
 /* rule 23 can match eol */
 YY_RULE_SETUP
-#line 45 "lex.l"
+#line 44 "lex.l"
 ;
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 47 "lex.l"
+#line 46 "lex.l"
 ECHO;
 	YY_BREAK
 #line 883 "lex.yy.c"
@@ -1884,7 +1884,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 47 "lex.l"
+#line 46 "lex.l"
 
 
 int yywrap() {

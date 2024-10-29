@@ -68,33 +68,32 @@ void print_symbols() {
     }
 }
 
-char *genE(const char *id, const char *s1, const char *s2, const char *s3) {
-    size_t len = strlen(id) + strlen(s1) + strlen(s2) + strlen(s3) + 4;
+char *genE(char *id, char *s1, char *s2, char *s3) {
+    int len = strlen(id) + strlen(s1) + strlen(s2) + strlen(s3) + 4;
     char *result = (char *)malloc(len);
     if (result) {
         snprintf(result, len, "%s = %s%s%s", id, s1, s3, s2);
-    }
-    //printf("%s\n", result);
+    }	
     return result;
 }
 
-char *genA(const char* type, const char *id, const char *s) {
-    size_t len = strlen(type) + strlen(id) + strlen(s) + 5;
+char *genA(char* type, char *id, char *s) {
+    int len = strlen(type) + strlen(id) + strlen(s) + 5;
     char *result = (char *)malloc(len);
     if (result) {
         snprintf(result, len, "%s %s = %s", type, id, s);
     }
-    //printf("%s\n", result);
+    
     return result;
 }
 
-char *genRT(const char* op1, const char *op2, const char *relop) {
-    size_t len = strlen(op1) + strlen(op2) + strlen(relop) + 13;
+char *genRT(char* op1, char *op2, char *relop) {
+    int len = strlen(op1) + strlen(op2) + strlen(relop) + 13;
     char *result = (char *)malloc(len);
     if (result) {
         snprintf(result, len, "if %s %s %s goto ", op1, relop, op2);
     }
-    //printf("%s\n", result);
+	
     return result;
 }
 
@@ -111,24 +110,16 @@ char *newtemp() {
     return temp;
 }
 
-char *concat(const char *s1, const char *s2) {
-    if (!s1 && !s2) {
-        return NULL;
-    }
-    if (!s1) {
-        return strdup(s2);
-    }
-    if (!s2) {
-        return strdup(s1);
-    }
+char *concat(char *s1, char *s2) {
+    if (!s1 && !s2) return NULL;
+    
+    if (!s1) return strdup(s2);
+    
+    if (!s2) return strdup(s1);
 
-    size_t len1 = strlen(s1);
-    size_t len2 = strlen(s2);
+    int len1 = strlen(s1);
+    int len2 = strlen(s2);
     char *result = (char *)malloc(len1 + len2 + 2);
-    if (!result) {
-        fprintf(stderr, "Error: Memory allocation failed.\n");
-        return NULL;
-    }
 
     strcpy(result, s1);
     strcpy(result, "\n");
@@ -177,16 +168,13 @@ void backpatch(int* arr, int instr){
     int value;
     struct st {
         int *next;
-        //char *code;
     } state;
     struct e {
         char *addr;
-        //char *code;
     } expr;
     struct b {
     	int *true;
     	int *false;
-    	//char *code;
     } b;
     struct m {
     	int instr;
@@ -208,12 +196,18 @@ void backpatch(int* arr, int instr){
 %left '*' '/'
 %left AND
 %left OR
-
+%nonassoc IFX
+%nonassoc IFE
 
 %%
-L:  L M S {backpatch($<n.next>1, $<m.instr>2); $<n.next>$ = $<state.next>3; for(int i=0;i<nextinstr;i++) printf("%d. %s\n",i, intrcd[i]);}
-    | S {$<n.next>$ = $<state.next>1; for(int i=0;i<nextinstr;i++) printf("%d. %s\n",i, intrcd[i]);}
+L:  L M S {backpatch($<n.next>1, $<m.instr>2); $<n.next>$ = $<state.next>3;}
+    | S {$<n.next>$ = $<state.next>1;}
     ;
+    
+M:	{$<m.instr>$=nextinstr;}
+	;
+N: 	%prec IFE {$<n.next>$=makelist(nextinstr); intrcd[nextinstr++]=strdup("goto ");}
+	;
 S:
     INTEGER IDENTIFIER ASSIGNMENT E SEMICOLON {
         //add_symbol($2, atoi($<expr.addr>4), "int");
@@ -228,8 +222,8 @@ S:
         $<state.next>$=NULL;
         
     }
+    | IF '(' B ')' M S %prec IFX {backpatch($<b.true>3,$<m.instr>5); $<state.next>$=merge($<b.false>3, $<state.next>6);}
     | IF '(' B ')' M S N ELSE M S {backpatch($<b.true>3,$<m.instr>5); backpatch($<b.false>3,$<m.instr>9); $<state.next>$=merge($<n.next>7, merge($<state.next>6, $<state.next>10));}
-    | IF '(' B ')' M S {backpatch($<b.true>3,$<m.instr>5); $<state.next>$=merge($<b.false>3, $<state.next>6);}
     | WHILE M '(' B ')' M S {backpatch($<state.next>7,$<m.instr>2); backpatch($<b.true>4,$<m.instr>6); $<state.next>$=$<b.false>4; genGoto($<m.instr>2);}
     | EXIT { return; }
     ;
@@ -237,30 +231,22 @@ S:
 E:
     E '+' E {
         $<expr.addr>$ = newtemp();
-        //$<expr.code>$ = concat(concat($<expr.code>1, $<expr.code>3), genE($<expr.addr>$, $<expr.addr>1, $<expr.addr>3, " + "));
         intrcd[nextinstr++]=genE($<expr.addr>$, $<expr.addr>1, $<expr.addr>3, " + ");
-        //printf("%s\n", $<expr.code>$);
-    }
+    	}
     | E '-' E {
         $<expr.addr>$ = newtemp();
-        //$<expr.code>$ = concat(concat($<expr.code>1, $<expr.code>3), genE($<expr.addr>$, $<expr.addr>1, $<expr.addr>3, " - "));
         intrcd[nextinstr++]=genE($<expr.addr>$, $<expr.addr>1, $<expr.addr>3, " + ");
-        //printf("%s\n", $<expr.code>$);
-    }
+    	}
     | E '*' E {
         $<expr.addr>$ = newtemp();
-        //$<expr.code>$ = concat(concat($<expr.code>1, $<expr.code>3), genE($<expr.addr>$, $<expr.addr>1, $<expr.addr>3, " * "));
         intrcd[nextinstr++]=genE($<expr.addr>$, $<expr.addr>1, $<expr.addr>3, " + ");
-        //printf("%s\n", $<expr.code>$);
-    }
+    	}
     | NUMBER {
         $<expr.addr>$ = strdup($1);
-        //$<expr.code>$ = NULL;
-    }
+    	}
     | IDENTIFIER {
         $<expr.addr>$ = strdup($1);
-        //$<expr.code>$ = NULL;
-    }
+    	}
     ;
     
 B:
@@ -272,21 +258,18 @@ B:
     	//| FALSE		{$<b.code>$ = concat($<expr.code>1, $<expr.code>3, genRT($<expr.addr>1, $<expr.addr>2, "==", "T"), genGoto("F"));}
     	;
     	
-M:	{$<m.instr>$=nextinstr;}
-	;
-
-N: 	{$<n.next>$=makelist(nextinstr); intrcd[nextinstr++]=strdup("goto ");}
-	;
 
 %% 
 
 int main() {
     printf("Enter the input: \n");
     yyparse();
+    printf("\nIntermediate Code Generated:\n");
+    for(int i=0;i<nextinstr;i++) printf("%d. %s\n",i, intrcd[i]);
     return 0;
 }
 
-void yyerror(const char *s) {
+void yyerror(char *s) {
     fprintf(stderr, "Error: %s\n", s);
 }
 

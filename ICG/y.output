@@ -1,0 +1,637 @@
+
+
+Terminals which are not used:
+
+   RELATIONAL
+   BOOLEAN
+   TRUE
+   FALSE
+   NOT
+   '/'
+
+
+Conflict in state 31 between rule 11 and token '+' resolved as reduce.
+Conflict in state 31 between rule 11 and token '-' resolved as reduce.
+Conflict in state 31 between rule 11 and token '*' resolved as shift.
+Conflict in state 32 between rule 12 and token '+' resolved as reduce.
+Conflict in state 32 between rule 12 and token '-' resolved as reduce.
+Conflict in state 32 between rule 12 and token '*' resolved as shift.
+Conflict in state 33 between rule 13 and token '+' resolved as reduce.
+Conflict in state 33 between rule 13 and token '-' resolved as reduce.
+Conflict in state 33 between rule 13 and token '*' resolved as reduce.
+Conflict in state 40 between rule 18 and token OR resolved as reduce.
+Conflict in state 40 between rule 18 and token AND resolved as reduce.
+Conflict in state 41 between rule 17 and token OR resolved as shift.
+Conflict in state 41 between rule 17 and token AND resolved as reduce.
+State 42 contains 1 reduce/reduce conflict.
+
+Grammar
+rule 1    L -> L M S
+rule 2    L -> S
+rule 3    M ->		/* empty */
+rule 4    N ->		/* empty */
+rule 5    S -> INTEGER IDENTIFIER ASSIGNMENT E SEMICOLON
+rule 6    S -> IDENTIFIER ASSIGNMENT E SEMICOLON
+rule 7    S -> IF '(' B ')' M S
+rule 8    S -> IF '(' B ')' M S N ELSE M S
+rule 9    S -> WHILE M '(' B ')' M S
+rule 10   S -> EXIT
+rule 11   E -> E '+' E
+rule 12   E -> E '-' E
+rule 13   E -> E '*' E
+rule 14   E -> NUMBER
+rule 15   E -> IDENTIFIER
+rule 16   B -> E RELOP E
+rule 17   B -> B AND M B
+rule 18   B -> B OR M B
+
+Terminals, with rules where they appear
+
+$ (-1)
+'(' (40) 7 8 9
+')' (41) 7 8 9
+'*' (42) 13
+'+' (43) 11
+'-' (45) 12
+'/' (47)
+error (256)
+IDENTIFIER (258) 5 6 15
+NUMBER (259) 14
+RELATIONAL (260)
+ASSIGNMENT (261) 5 6
+SEMICOLON (262) 5 6
+EXIT (263) 10
+INTEGER (264) 5
+BOOLEAN (265)
+TRUE (266)
+FALSE (267)
+IF (268) 7 8
+ELSE (269) 8
+WHILE (270) 9
+OR (271) 18
+AND (272) 17
+NOT (273)
+RELOP (274) 16
+IFX (275)
+IFE (276)
+
+Nonterminals, with rules where they appear
+
+L (28)
+    on left: 1 2, on right: 1
+M (29)
+    on left: 3, on right: 1 7 8 9 17 18
+N (30)
+    on left: 4, on right: 8
+S (31)
+    on left: 5 6 7 8 9 10, on right: 1 2 7 8 9
+E (32)
+    on left: 11 12 13 14 15, on right: 5 6 11 12 13 16
+B (33)
+    on left: 16 17 18, on right: 7 8 9 17 18
+
+
+state 0
+
+    IDENTIFIER	shift, and go to state 1
+    EXIT	shift, and go to state 2
+    INTEGER	shift, and go to state 3
+    IF  	shift, and go to state 4
+    WHILE	shift, and go to state 5
+
+    L   	go to state 6
+    S   	go to state 7
+
+
+
+state 1
+
+    S  ->  IDENTIFIER . ASSIGNMENT E SEMICOLON   (rule 6)
+
+    ASSIGNMENT	shift, and go to state 8
+
+
+
+state 2
+
+    S  ->  EXIT .   (rule 10)
+
+    $default	reduce using rule 10 (S)
+
+
+
+state 3
+
+    S  ->  INTEGER . IDENTIFIER ASSIGNMENT E SEMICOLON   (rule 5)
+
+    IDENTIFIER	shift, and go to state 9
+
+
+
+state 4
+
+    S  ->  IF . '(' B ')' M S   (rule 7)
+    S  ->  IF . '(' B ')' M S N ELSE M S   (rule 8)
+
+    '(' 	shift, and go to state 10
+
+
+
+state 5
+
+    S  ->  WHILE . M '(' B ')' M S   (rule 9)
+
+    $default	reduce using rule 3 (M)
+
+    M   	go to state 11
+
+
+
+state 6
+
+    L  ->  L . M S   (rule 1)
+
+    $   	go to state 49
+
+    $default	reduce using rule 3 (M)
+
+    M   	go to state 12
+
+
+
+state 7
+
+    L  ->  S .   (rule 2)
+
+    $default	reduce using rule 2 (L)
+
+
+
+state 8
+
+    S  ->  IDENTIFIER ASSIGNMENT . E SEMICOLON   (rule 6)
+
+    IDENTIFIER	shift, and go to state 13
+    NUMBER	shift, and go to state 14
+
+    E   	go to state 15
+
+
+
+state 9
+
+    S  ->  INTEGER IDENTIFIER . ASSIGNMENT E SEMICOLON   (rule 5)
+
+    ASSIGNMENT	shift, and go to state 16
+
+
+
+state 10
+
+    S  ->  IF '(' . B ')' M S   (rule 7)
+    S  ->  IF '(' . B ')' M S N ELSE M S   (rule 8)
+
+    IDENTIFIER	shift, and go to state 13
+    NUMBER	shift, and go to state 14
+
+    E   	go to state 17
+    B   	go to state 18
+
+
+
+state 11
+
+    S  ->  WHILE M . '(' B ')' M S   (rule 9)
+
+    '(' 	shift, and go to state 19
+
+
+
+state 12
+
+    L  ->  L M . S   (rule 1)
+
+    IDENTIFIER	shift, and go to state 1
+    EXIT	shift, and go to state 2
+    INTEGER	shift, and go to state 3
+    IF  	shift, and go to state 4
+    WHILE	shift, and go to state 5
+
+    S   	go to state 20
+
+
+
+state 13
+
+    E  ->  IDENTIFIER .   (rule 15)
+
+    $default	reduce using rule 15 (E)
+
+
+
+state 14
+
+    E  ->  NUMBER .   (rule 14)
+
+    $default	reduce using rule 14 (E)
+
+
+
+state 15
+
+    S  ->  IDENTIFIER ASSIGNMENT E . SEMICOLON   (rule 6)
+    E  ->  E . '+' E   (rule 11)
+    E  ->  E . '-' E   (rule 12)
+    E  ->  E . '*' E   (rule 13)
+
+    SEMICOLON	shift, and go to state 21
+    '+' 	shift, and go to state 22
+    '-' 	shift, and go to state 23
+    '*' 	shift, and go to state 24
+
+
+
+state 16
+
+    S  ->  INTEGER IDENTIFIER ASSIGNMENT . E SEMICOLON   (rule 5)
+
+    IDENTIFIER	shift, and go to state 13
+    NUMBER	shift, and go to state 14
+
+    E   	go to state 25
+
+
+
+state 17
+
+    E  ->  E . '+' E   (rule 11)
+    E  ->  E . '-' E   (rule 12)
+    E  ->  E . '*' E   (rule 13)
+    B  ->  E . RELOP E   (rule 16)
+
+    RELOP	shift, and go to state 26
+    '+' 	shift, and go to state 22
+    '-' 	shift, and go to state 23
+    '*' 	shift, and go to state 24
+
+
+
+state 18
+
+    S  ->  IF '(' B . ')' M S   (rule 7)
+    S  ->  IF '(' B . ')' M S N ELSE M S   (rule 8)
+    B  ->  B . AND M B   (rule 17)
+    B  ->  B . OR M B   (rule 18)
+
+    OR  	shift, and go to state 27
+    AND 	shift, and go to state 28
+    ')' 	shift, and go to state 29
+
+
+
+state 19
+
+    S  ->  WHILE M '(' . B ')' M S   (rule 9)
+
+    IDENTIFIER	shift, and go to state 13
+    NUMBER	shift, and go to state 14
+
+    E   	go to state 17
+    B   	go to state 30
+
+
+
+state 20
+
+    L  ->  L M S .   (rule 1)
+
+    $default	reduce using rule 1 (L)
+
+
+
+state 21
+
+    S  ->  IDENTIFIER ASSIGNMENT E SEMICOLON .   (rule 6)
+
+    $default	reduce using rule 6 (S)
+
+
+
+state 22
+
+    E  ->  E '+' . E   (rule 11)
+
+    IDENTIFIER	shift, and go to state 13
+    NUMBER	shift, and go to state 14
+
+    E   	go to state 31
+
+
+
+state 23
+
+    E  ->  E '-' . E   (rule 12)
+
+    IDENTIFIER	shift, and go to state 13
+    NUMBER	shift, and go to state 14
+
+    E   	go to state 32
+
+
+
+state 24
+
+    E  ->  E '*' . E   (rule 13)
+
+    IDENTIFIER	shift, and go to state 13
+    NUMBER	shift, and go to state 14
+
+    E   	go to state 33
+
+
+
+state 25
+
+    S  ->  INTEGER IDENTIFIER ASSIGNMENT E . SEMICOLON   (rule 5)
+    E  ->  E . '+' E   (rule 11)
+    E  ->  E . '-' E   (rule 12)
+    E  ->  E . '*' E   (rule 13)
+
+    SEMICOLON	shift, and go to state 34
+    '+' 	shift, and go to state 22
+    '-' 	shift, and go to state 23
+    '*' 	shift, and go to state 24
+
+
+
+state 26
+
+    B  ->  E RELOP . E   (rule 16)
+
+    IDENTIFIER	shift, and go to state 13
+    NUMBER	shift, and go to state 14
+
+    E   	go to state 35
+
+
+
+state 27
+
+    B  ->  B OR . M B   (rule 18)
+
+    $default	reduce using rule 3 (M)
+
+    M   	go to state 36
+
+
+
+state 28
+
+    B  ->  B AND . M B   (rule 17)
+
+    $default	reduce using rule 3 (M)
+
+    M   	go to state 37
+
+
+
+state 29
+
+    S  ->  IF '(' B ')' . M S   (rule 7)
+    S  ->  IF '(' B ')' . M S N ELSE M S   (rule 8)
+
+    $default	reduce using rule 3 (M)
+
+    M   	go to state 38
+
+
+
+state 30
+
+    S  ->  WHILE M '(' B . ')' M S   (rule 9)
+    B  ->  B . AND M B   (rule 17)
+    B  ->  B . OR M B   (rule 18)
+
+    OR  	shift, and go to state 27
+    AND 	shift, and go to state 28
+    ')' 	shift, and go to state 39
+
+
+
+state 31
+
+    E  ->  E . '+' E   (rule 11)
+    E  ->  E '+' E .   (rule 11)
+    E  ->  E . '-' E   (rule 12)
+    E  ->  E . '*' E   (rule 13)
+
+    '*' 	shift, and go to state 24
+
+    $default	reduce using rule 11 (E)
+
+
+
+state 32
+
+    E  ->  E . '+' E   (rule 11)
+    E  ->  E . '-' E   (rule 12)
+    E  ->  E '-' E .   (rule 12)
+    E  ->  E . '*' E   (rule 13)
+
+    '*' 	shift, and go to state 24
+
+    $default	reduce using rule 12 (E)
+
+
+
+state 33
+
+    E  ->  E . '+' E   (rule 11)
+    E  ->  E . '-' E   (rule 12)
+    E  ->  E . '*' E   (rule 13)
+    E  ->  E '*' E .   (rule 13)
+
+
+    $default	reduce using rule 13 (E)
+
+
+
+state 34
+
+    S  ->  INTEGER IDENTIFIER ASSIGNMENT E SEMICOLON .   (rule 5)
+
+    $default	reduce using rule 5 (S)
+
+
+
+state 35
+
+    E  ->  E . '+' E   (rule 11)
+    E  ->  E . '-' E   (rule 12)
+    E  ->  E . '*' E   (rule 13)
+    B  ->  E RELOP E .   (rule 16)
+
+    '+' 	shift, and go to state 22
+    '-' 	shift, and go to state 23
+    '*' 	shift, and go to state 24
+
+    $default	reduce using rule 16 (B)
+
+
+
+state 36
+
+    B  ->  B OR M . B   (rule 18)
+
+    IDENTIFIER	shift, and go to state 13
+    NUMBER	shift, and go to state 14
+
+    E   	go to state 17
+    B   	go to state 40
+
+
+
+state 37
+
+    B  ->  B AND M . B   (rule 17)
+
+    IDENTIFIER	shift, and go to state 13
+    NUMBER	shift, and go to state 14
+
+    E   	go to state 17
+    B   	go to state 41
+
+
+
+state 38
+
+    S  ->  IF '(' B ')' M . S   (rule 7)
+    S  ->  IF '(' B ')' M . S N ELSE M S   (rule 8)
+
+    IDENTIFIER	shift, and go to state 1
+    EXIT	shift, and go to state 2
+    INTEGER	shift, and go to state 3
+    IF  	shift, and go to state 4
+    WHILE	shift, and go to state 5
+
+    S   	go to state 42
+
+
+
+state 39
+
+    S  ->  WHILE M '(' B ')' . M S   (rule 9)
+
+    $default	reduce using rule 3 (M)
+
+    M   	go to state 43
+
+
+
+state 40
+
+    B  ->  B . AND M B   (rule 17)
+    B  ->  B . OR M B   (rule 18)
+    B  ->  B OR M B .   (rule 18)
+
+
+    $default	reduce using rule 18 (B)
+
+
+
+state 41
+
+    B  ->  B . AND M B   (rule 17)
+    B  ->  B AND M B .   (rule 17)
+    B  ->  B . OR M B   (rule 18)
+
+    OR  	shift, and go to state 27
+
+    $default	reduce using rule 17 (B)
+
+
+
+state 42
+
+    S  ->  IF '(' B ')' M S .   (rule 7)
+    S  ->  IF '(' B ')' M S . N ELSE M S   (rule 8)
+
+    ELSE	reduce using rule 4 (N)
+    ELSE	[reduce using rule 7 (S)]
+    $default	reduce using rule 7 (S)
+
+    N   	go to state 44
+
+
+
+state 43
+
+    S  ->  WHILE M '(' B ')' M . S   (rule 9)
+
+    IDENTIFIER	shift, and go to state 1
+    EXIT	shift, and go to state 2
+    INTEGER	shift, and go to state 3
+    IF  	shift, and go to state 4
+    WHILE	shift, and go to state 5
+
+    S   	go to state 45
+
+
+
+state 44
+
+    S  ->  IF '(' B ')' M S N . ELSE M S   (rule 8)
+
+    ELSE	shift, and go to state 46
+
+
+
+state 45
+
+    S  ->  WHILE M '(' B ')' M S .   (rule 9)
+
+    $default	reduce using rule 9 (S)
+
+
+
+state 46
+
+    S  ->  IF '(' B ')' M S N ELSE . M S   (rule 8)
+
+    $default	reduce using rule 3 (M)
+
+    M   	go to state 47
+
+
+
+state 47
+
+    S  ->  IF '(' B ')' M S N ELSE M . S   (rule 8)
+
+    IDENTIFIER	shift, and go to state 1
+    EXIT	shift, and go to state 2
+    INTEGER	shift, and go to state 3
+    IF  	shift, and go to state 4
+    WHILE	shift, and go to state 5
+
+    S   	go to state 48
+
+
+
+state 48
+
+    S  ->  IF '(' B ')' M S N ELSE M S .   (rule 8)
+
+    $default	reduce using rule 8 (S)
+
+
+
+state 49
+
+    $   	go to state 50
+
+
+
+state 50
+
+    $default	accept

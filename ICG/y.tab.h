@@ -13,22 +13,19 @@
 
  #line 8 "/usr/share/bison++/bison.h"
 
-#line 175 "par.y"
+#line 166 "par.y"
 typedef union {
     char *string;
     int value;
     struct st {
         int *next;
-        //char *code;
     } state;
     struct e {
         char *addr;
-        //char *code;
     } expr;
     struct b {
     	int *true;
     	int *false;
-    	//char *code;
     } b;
     struct m {
     	int instr;
@@ -227,6 +224,8 @@ typedef
 #define	AND	272
 #define	NOT	273
 #define	RELOP	274
+#define	IFX	275
+#define	IFE	276
 
 
 #line 169 "/usr/share/bison++/bison.h"
@@ -292,6 +291,8 @@ static const int OR;
 static const int AND;
 static const int NOT;
 static const int RELOP;
+static const int IFX;
+static const int IFE;
 
 
 #line 212 "/usr/share/bison++/bison.h"
@@ -317,6 +318,8 @@ static const int RELOP;
 	,AND=272
 	,NOT=273
 	,RELOP=274
+	,IFX=275
+	,IFE=276
 
 
 #line 215 "/usr/share/bison++/bison.h"
